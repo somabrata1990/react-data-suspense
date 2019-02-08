@@ -22,9 +22,18 @@ export default class Suspense extends React.PureComponent {
   }
 
   render() {
+    const defaultStyles = {
+        position: 'fixed',
+        height: '100%',
+        width: '100%',
+        backgroundColor: 'grey',
+    };
     // The entire state is passed to the provider
     return (
       <loaderContext.Provider value={this.state}>
+        <div styles={{ ...defaultStyles }}>
+            {this.props.fallback}
+        </div>
         {this.props.children}
       </loaderContext.Provider>
     );
@@ -38,12 +47,6 @@ export const Lazy = (Element) => {
       return(
         <loaderContext.Consumer>
           {({isLoading, fetchData}) => {
-              const defaultStyles = {
-                  position: 'fixed',
-                  height: '100%',
-                  width: '100%',
-                  backgroundColor: 'grey',
-              };
             return <Element {...props} fetchData={fetchData} isLoading={isLoading}/>
           }}
         </loaderContext.Consumer>
