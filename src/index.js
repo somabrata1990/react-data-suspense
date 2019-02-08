@@ -32,7 +32,7 @@ export default class Suspense extends React.PureComponent {
     return (
       <loaderContext.Provider value={this.state}>
         <div styles={{ ...defaultStyles }}>
-            {this.props.fallback}
+            {this.state.isLoading ? this.props.fallback : this.props.children} 
         </div>
         {this.props.children}
       </loaderContext.Provider>
